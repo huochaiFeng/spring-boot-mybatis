@@ -31,9 +31,9 @@
          <nav>
              <ul class="list">
                  <li ><a href="${pageContext.request.contextPath }/jsp/bill.do?method=query">订单管理</a></li>
-              <li><a href="${pageContext.request.contextPath }/jsp/provider.do?method=query">供应商管理</a></li>
-              <li><a href="${pageContext.request.contextPath }/user/userlist.html">用户管理</a></li>
-              <li><a href="${pageContext.request.contextPath }/jsp/pwdmodify.jsp">密码修改</a></li>
+              <li><a href="${pageContext.request.contextPath }/sys/provider/list.html">供应商管理</a></li>
+              <li><a href="${pageContext.request.contextPath }/sys/user/list.html">用户管理</a></li>
+              <li><a href="${pageContext.request.contextPath }/sys/user/pwdmodify.html">密码修改</a></li>
               <li><a href="${pageContext.request.contextPath }/user/logout.html">退出系统</a></li>
              </ul>
          </nav>
