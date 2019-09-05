@@ -1,36 +1,35 @@
+#配置端口号
 server:
   port : 9090
 ---
+#配饰jsp页面路径
 spring:
   mvc:
     view:
       prefix : /WEB-INF/jsp/
       suffix : .jsp
 ---
+#配置静态文件访问
 spring:
     mvc:
         static-path-pattern: /static/**
     resources:
         static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/, file:D:/upload
-    
 ---
-
+#配置默认开发环境
 spring:
   profiles:
     active: dev
-
-
+---
+#mybatis配置
 mybatis:
   typeAliasesPackage: com.hwadee.smbms.model
   mapperLocations: classpath:mapper/*.xml
-
-
 ---
-
-
+#环境配置
 spring:
   profiles: dev
-
+  #配置数据源
   datasource:
     url: jdbc:mysql://localhost:3306/smbms?characterEncoding=UTF-8&useUnicode=true&useSSL=false
     username: root
