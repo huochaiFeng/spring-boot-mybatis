@@ -13,6 +13,7 @@ import com.hwadee.smbms.model.User;
 import com.hwadee.smbms.service.UserService;
 import com.hwadee.smbms.utils.Constants;
 
+
 @Controller
 public class LoginController {
 private Logger logger = Logger.getLogger(LoginController.class);
@@ -49,9 +50,13 @@ private Logger logger = Logger.getLogger(LoginController.class);
 		session.removeAttribute(Constants.USER_SESSION);
 		return "login";
 	}
-	
 	@RequestMapping(value="/sys/main.html")
 	public String main(){
 		return "frame";
+	}
+	
+	@RequestMapping(value="/syserror.html")
+	public String sysError(){
+		return "syserror";
 	}
 }
