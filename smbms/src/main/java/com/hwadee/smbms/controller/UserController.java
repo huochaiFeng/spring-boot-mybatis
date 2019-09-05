@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +31,6 @@ import com.hwadee.smbms.service.RoleService;
 import com.hwadee.smbms.service.UserService;
 import com.hwadee.smbms.utils.Constants;
 import com.hwadee.smbms.utils.PageSupport;
-import com.mysql.jdbc.StringUtils;
 
 
 @Controller
@@ -143,7 +145,7 @@ public class UserController extends BaseController{
 	            	flag = false;
 	            }else if(prefix.equalsIgnoreCase("jpg") || prefix.equalsIgnoreCase("png") 
 	            		|| prefix.equalsIgnoreCase("jpeg") || prefix.equalsIgnoreCase("pneg")){//上传图片格式不正确
-	            	String fileName = System.currentTimeMillis()+RandomUtils.nextInt(1000000)+"_Personal.jpg";  
+	            	String fileName = System.currentTimeMillis()+RandomUtils.nextInt(0,1000000)+"_Personal.jpg";  
 	                logger.debug("new fileName======== " + attach.getName());
 	                File targetFile = new File(path, fileName);  
 	                if(!targetFile.exists()){  
@@ -245,7 +247,7 @@ public class UserController extends BaseController{
 		            	flag = false;
 		            }else if(prefix.equalsIgnoreCase("jpg") || prefix.equalsIgnoreCase("png") 
 		            		|| prefix.equalsIgnoreCase("jpeg") || prefix.equalsIgnoreCase("pneg")){//上传图片格式不正确
-		            	String fileName = System.currentTimeMillis()+RandomUtils.nextInt(1000000)+"_Personal.jpg";  
+		            	String fileName = System.currentTimeMillis()+RandomUtils.nextInt(1,1000000)+"_Personal.jpg";  
 		                logger.debug("new fileName======== " + attach.getName());
 		                File targetFile = new File(path, fileName);  
 		                if(!targetFile.exists()){  
@@ -292,11 +294,10 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping(value="/ucexist.json")
-	@ResponseBody
-	public Object userCodeIsExit(@RequestParam String userCode){
+	public ResponseEntity<Object> userCodeIsExit(@RequestParam String userCode){
 		logger.debug("userCodeIsExit userCode===================== "+userCode);
 		HashMap<String, String> resultMap = new HashMap<String, String>();
-		if(StringUtils.isNullOrEmpty(userCode)){
+		if(StringUtils.isEmpty(userCode)){
 			resultMap.put("userCode", "exist");
 		}else{
 			User user = null;
@@ -311,7 +312,7 @@ public class UserController extends BaseController{
 			else
 				resultMap.put("userCode", "noexist");
 		}
-		return JSONArray.toJSONString(resultMap);
+		return new ResponseEntity<Object>(resultMap,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/rolelist.json",method=RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
@@ -329,10 +330,9 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping(value="/deluser.json",method=RequestMethod.GET)
-	@ResponseBody
-	public Object deluser(@RequestParam String id){
+	public ResponseEntity<Object> deluser(@RequestParam String id){
 		HashMap<String, String> resultMap = new HashMap<String, String>();
-		if(StringUtils.isNullOrEmpty(id)){
+		if(StringUtils.isEmpty(id)){
 			resultMap.put("delResult", "notexist");
 		}else{
 			try {
@@ -348,7 +348,7 @@ public class UserController extends BaseController{
 				e.printStackTrace();
 			}
 		}
-		return JSONArray.toJSONString(resultMap);
+		return new ResponseEntity<Object>(resultMap,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/view/{id}",method=RequestMethod.GET)
@@ -388,13 +388,12 @@ public class UserController extends BaseController{
 	}
 	
 	@RequestMapping(value="/pwdmodify.json",method=RequestMethod.POST)
-	@ResponseBody
 	public Object getPwdByUserId(@RequestParam String oldpassword,HttpSession session){
 		logger.debug("getPwdByUserId oldpassword ===================== "+oldpassword);
 		HashMap<String, String> resultMap = new HashMap<String, String>();
 		if(null == session.getAttribute(Constants.USER_SESSION) ){//session过期
 			resultMap.put("result", "sessionerror");
-		}else if(StringUtils.isNullOrEmpty(oldpassword)){//旧密码输入为空
+		}else if(StringUtils.isEmpty(oldpassword)){//旧密码输入为空
 			resultMap.put("result", "error");
 		}else{
 			String sessionPwd = ((User)session.getAttribute(Constants.USER_SESSION)).getUserPassword();
@@ -404,7 +403,7 @@ public class UserController extends BaseController{
 				resultMap.put("result", "false");
 			}
 		}
-		return JSONArray.toJSONString(resultMap);
+		return new ResponseEntity<Object>(resultMap,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/pwdsave.html")
@@ -413,7 +412,7 @@ public class UserController extends BaseController{
 							HttpServletRequest request){
 		boolean flag = false;
 		Object o = session.getAttribute(Constants.USER_SESSION);
-		if(o != null && !StringUtils.isNullOrEmpty(newPassword)){
+		if(o != null && !StringUtils.isEmpty(newPassword)){
 			try {
 				flag = userService.updatePwd(((User)o).getId(),newPassword);
 			} catch (Exception e) {

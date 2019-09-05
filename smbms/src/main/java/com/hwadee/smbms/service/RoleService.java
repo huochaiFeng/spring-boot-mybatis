@@ -7,6 +7,11 @@ import com.hwadee.smbms.model.Role;
 
 public interface RoleService {
 	
-	public List<Role> getRoleList();
+	/**
+	 * 获取角色列表
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Role> getRoleList() throws Exception;
 	
 }
