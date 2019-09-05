@@ -1,4 +1,4 @@
-package com.hwadee.smbms.dao;
+package com.hwadee.smbms.mapper;
 
 import java.sql.Connection;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import com.hwadee.smbms.model.Bill;
 
 
-public interface BillDao {
+public interface BillMapper {
 	/**
 	 * 增加订单
 	 * @param connection

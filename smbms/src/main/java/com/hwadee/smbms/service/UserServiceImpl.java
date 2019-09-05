@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.hwadee.smbms.dao.UserMapper;
+import com.hwadee.smbms.mapper.UserMapper;
 import com.hwadee.smbms.model.User;
 
 @Service
