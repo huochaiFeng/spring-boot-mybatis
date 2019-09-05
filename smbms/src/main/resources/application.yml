@@ -1,0 +1,39 @@
+server:
+  port : 9090
+---
+spring:
+  mvc:
+    view:
+      prefix : /WEB-INF/jsp/
+      suffix : .jsp
+---
+spring:
+    mvc:
+        static-path-pattern: /static/**
+    resources:
+        static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/, file:D:/upload
+    
+---
+
+spring:
+  profiles:
+    active: dev
+
+
+mybatis:
+  typeAliasesPackage: com.hwadee.smbms.model
+  mapperLocations: classpath:mapper/*.xml
+
+
+---
+
+
+spring:
+  profiles: dev
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/smbms?characterEncoding=UTF-8&useUnicode=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
