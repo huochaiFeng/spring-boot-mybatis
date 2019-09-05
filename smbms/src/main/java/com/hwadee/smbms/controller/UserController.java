@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.hwadee.smbms.service.user.UserService;
+import com.hwadee.smbms.service.UserService;
 
 
 @Controller

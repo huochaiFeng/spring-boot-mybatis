@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hwadee.smbms.model.User;
-import com.hwadee.smbms.service.user.UserService;
+import com.hwadee.smbms.service.UserService;
 import com.hwadee.smbms.utils.Constants;
 
 @Controller

@@ -1,4 +1,4 @@
-package com.hwadee.smbms.service.user;
+package com.hwadee.smbms.service;
 
 import javax.annotation.Resource;
 

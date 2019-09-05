@@ -1,4 +1,4 @@
-package com.hwadee.smbms.service.user;
+package com.hwadee.smbms.service;
 
 import com.hwadee.smbms.model.User;
 
